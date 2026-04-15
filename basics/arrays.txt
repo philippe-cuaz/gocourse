@@ -1,0 +1,25 @@
+package main
+
+import "fmt"
+
+func main() {
+	// var arrayName [size]elementType
+
+	var numbers [5]int
+	fmt.Println(numbers)
+
+	numbers[4] = 20
+	fmt.Println(numbers)
+
+	fruits := [4]string{"Apple", "Banana", "Orange", "Grapes"}
+	fmt.Println(fruits)
+
+	originalArray := [3]int{1, 2, 3}
+	copiedArray := originalArray
+
+	copiedArray[0] = 100
+
+	fmt.Println("Original array:", originalArray)
+	fmt.Println("Copied array:", copiedArray)
+
+}

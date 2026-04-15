@@ -1,0 +1,35 @@
+package main
+
+import "fmt"
+
+func main() {
+	// number := 15
+
+	// switch {
+	// case number < 10:
+	// 	fmt.Println("Number is less than 10")
+	// case number >= 10 && number < 20:
+	// 	fmt.Println("Number is between 10 and 19")
+	// default:
+	// 	fmt.Println("Number is 20 or more")
+	// }
+
+	checkType(10)
+	checkType(3.14)
+	checkType("Hello")
+	checkType(true)
+
+}
+
+func checkType(x interface{}) {
+	switch x.(type) {
+	case int:
+		fmt.Println("It 's an integer")
+	case float64:
+		fmt.Println("It's a float")
+	case string:
+		fmt.Println("It's a string")
+	default:
+		fmt.Println("Unknown type")
+	}
+}

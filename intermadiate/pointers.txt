@@ -1,0 +1,20 @@
+package main
+
+import "fmt"
+
+func main() {
+
+	var ptr *int
+	var a int = 10
+	ptr = &a
+	fmt.Println("value of a is: ", a)
+	fmt.Println("the address of a is: ", ptr)
+	fmt.Println("the value at the address of a is: ", *ptr)
+
+	modifyValue(ptr)
+	fmt.Println(a)
+}
+
+func modifyValue(ptr *int) {
+	*ptr++
+}
