@@ -1,0 +1,39 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+
+	fmt.Println("Beginning program.")
+	go sayHello()
+	fmt.Println("After sayHello program.")
+
+	go printNumbers()
+	go printLetters()
+
+	time.Sleep(2 * time.Second)
+}
+
+func sayHello() {
+	time.Sleep(1 * time.Second)
+	fmt.Println("Hello from Goroutine")
+}
+
+func printNumbers() {
+	for i := 0; i < 5; i++ {
+		//fmt.Println(i)
+		fmt.Println("Number: ", i, time.Now())
+		time.Sleep(100 * time.Millisecond)
+	}
+}
+
+func printLetters() {
+	for _, letter := range "abcde" {
+		fmt.Println(string(letter), time.Now())
+		//fmt.Println(time.Now())
+		time.Sleep(200 * time.Millisecond)
+	}
+}
