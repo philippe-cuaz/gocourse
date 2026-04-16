@@ -9,7 +9,8 @@ func main() {
 	greetString := "Hello"
 
 	go func() {
-		greeting <- greetString // blocking because itis continuously trying to receive values,
+		greeting <- greetString // blocking because itis continuously
+		// trying to receive values,
 		// it is ready to receive continuous flow of data.
 	}()
 
