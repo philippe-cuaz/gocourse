@@ -12,10 +12,16 @@ func main() {
 		greeting <- greetString // blocking because itis continuously
 		// trying to receive values,
 		// it is ready to receive continuous flow of data.
+		greeting <- "World"
 	}()
 
-	receiver := <-greeting
+	go func() {
+		receiver := <-greeting
+		fmt.Println(receiver)
+	}()
+	//receiver = <-greeting
+	//fmt.Println(receiver)
 
-	fmt.Println(receiver)
+	fmt.Println("End of program.")
 
 }
