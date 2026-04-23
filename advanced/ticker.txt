@@ -1,0 +1,31 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	ticker := time.NewTicker(time.Second)
+	ticker2 := time.NewTicker(500 * time.Millisecond)
+	ticker3 := time.NewTicker(950 * time.Millisecond)
+	stop := time.After((4 * time.Second) % (time.Second + (500 * time.Millisecond))) // Timer to keep track of ticker termination time
+	// Remember to stop the tickers when you're done with them to free up resources.
+	defer ticker.Stop()
+	defer ticker2.Stop()
+	defer ticker3.Stop()
+
+	for {
+		select {
+		case tick1 := <-ticker.C:
+			fmt.Println("Tick1 at:", tick1)
+		case tick2 := <-ticker2.C:
+			fmt.Println("Tick2 at:", tick2)
+		case tick3 := <-ticker3.C:
+			fmt.Println("Tick3 at:", tick3)
+		case tick4 := <-stop:
+			fmt.Println("Stopping ticker at: ", tick4)
+			return // exit the program. This will execute deferred stop calls on the tickers and garbage collect them.
+		}
+	}
+}
