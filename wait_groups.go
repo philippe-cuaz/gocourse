@@ -6,23 +6,57 @@ import (
 	"time"
 )
 
-func worker(id int, wg *sync.WaitGroup) {
+// EXAMPLE WITH CHANNELS
+
+func worker(id int, results chan<- int, wg *sync.WaitGroup) {
 	defer wg.Done()
-	fmt.Printf("Worker %d starting\n", id)
-	time.Sleep(time.Second) // simulate some time spent on processing the task
-	fmt.Printf("Worker %d finished\n", id)
+	fmt.Printf("WorkerID %d starting\n", id)
+	time.Sleep(time.Second) // simulatet some work
+	results <- id * 2
+	fmt.Printf("WorkerID %d finished", id)
 }
 
 func main() {
 	var wg sync.WaitGroup
 	numWorkers := 3
+	numJobs := 3
+	results := make(chan int, numJobs)
 
 	wg.Add(numWorkers)
 
-	// Launch workers
 	for i := range numWorkers {
-		go worker(i, &wg)
+		go worker(i, results, &wg)
+	}
 
-	wg.Wait()
-	fmt.Println("All workers finished")
+	go func() {
+		wg.Wait()
+		close(results)
+	}()
+
+	for result := range results {
+		fmt.Printf("%d", result)
+	}
+
 }
+
+// =========== BASIC EXAMLE WITHOUT USING CHANNELS
+// func worker(id int, wg *sync.WaitGroup) {
+// 	defer wg.Done()
+// 	fmt.Printf("Worker %d starting\n", id)
+// 	time.Sleep(time.Second) // simulate some time spent on processing the task
+// 	fmt.Printf("Worker %d finished\n", id)
+// }
+
+// func main() {
+// 	var wg sync.WaitGroup
+// 	numWorkers := 3
+
+// 	wg.Add(numWorkers)
+
+// 	// Launch workers
+// 	for i := range numWorkers {
+// 		go worker(i, &wg)
+
+// 	wg.Wait()
+// 	fmt.Println("All workers finished")
+// }
