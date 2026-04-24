@@ -35,6 +35,7 @@ func main() {
 			defer wg.Done()
 			for range 1000 {
 				counter.increment()
+				//counter.count++
 			}
 		}()
 	}
