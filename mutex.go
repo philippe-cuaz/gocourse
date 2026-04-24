@@ -1,6 +1,9 @@
 package main
 
-import "sync"
+import (
+	"fmt"
+	"sync"
+)
 
 type counter struct {
 	mu    sync.Mutex
@@ -23,11 +26,10 @@ func main() {
 
 	var wg sync.WaitGroup
 	counter := &counter{}
-
 	numGoroutines := 10
 
-	wg.Add(numGoroutines)
-	for range 10 {
+	//wg.Add(numGoroutines)
+	for range numGoroutines {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
@@ -37,4 +39,5 @@ func main() {
 		}()
 	}
 	wg.Wait()
+	fmt.Printf("Final counter value: %d\n", counter.getValue())
 }
