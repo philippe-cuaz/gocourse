@@ -42,8 +42,8 @@ func main() {
 	// Configure TLS
 	tlsConfig := &tls.Config{
 		MinVersion: tls.VersionTLS12,
-		ClientAuth: tls.RequireAndVerifyClientCert,
-		ClientCAs:  loadClientCAs(),
+		// ClientAuth: tls.RequireAndVerifyClientCert,
+		// ClientCAs:  loadClientCAs(),
 	}
 
 	// Create a custom server
